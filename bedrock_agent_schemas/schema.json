@@ -1,0 +1,243 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Powertools API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/troubleshoot-eks-worker-node": {
+      "post": {
+        "summary": "POST /troubleshoot-eks-worker-node",
+        "description": "Troubleshoot EKS worker node failed to join the cluster",
+        "operationId": "troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Return",
+                  "description": "The output of the Automation execution"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/troubleshoot-ecs-container-instance": {
+      "post": {
+        "summary": "POST /troubleshoot-ecs-container-instance",
+        "description": "Troubleshoot ECS container instance failed to register with the cluster",
+        "operationId": "troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Return",
+                  "description": "The output of the Automation execution"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/troubleshoot-s3-lambda": {
+      "post": {
+        "summary": "POST /troubleshoot-s3-lambda",
+        "description": "Troubleshoot why an Amazon S3 event notification failed to trigger the specified AWS Lambda function.",
+        "operationId": "troubleshoot_s3_lambda_troubleshoot_s3_lambda_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_troubleshoot_s3_lambda_troubleshoot_s3_lambda_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Return",
+                  "description": "The output of the Automation execution"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post": {
+        "properties": {
+          "cluster_name": {
+            "type": "string",
+            "title": "Cluster Name",
+            "description": "The name of the ECS cluster"
+          },
+          "container_instance_id": {
+            "type": "string",
+            "title": "Container Instance Id",
+            "description": "The ID of the container instance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cluster_name",
+          "container_instance_id"
+        ],
+        "title": "Body_troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post"
+      },
+      "Body_troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post": {
+        "properties": {
+          "cluster_name": {
+            "type": "string",
+            "title": "Cluster Name",
+            "description": "The name of the EKS cluster"
+          },
+          "worker_id": {
+            "type": "string",
+            "title": "Worker Id",
+            "description": "The ID of the worker node"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cluster_name",
+          "worker_id"
+        ],
+        "title": "Body_troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post"
+      },
+      "Body_troubleshoot_s3_lambda_troubleshoot_s3_lambda_post": {
+        "properties": {
+          "s3_bucket_name": {
+            "type": "string",
+            "title": "S3 Bucket Name",
+            "description": "The name of the S3 bucket"
+          },
+          "lambda_function_arn": {
+            "type": "string",
+            "title": "Lambda Function Arn",
+            "description": "The ARN of the Lambda function"
+          }
+        },
+        "type": "object",
+        "required": [
+          "s3_bucket_name",
+          "lambda_function_arn"
+        ],
+        "title": "Body_troubleshoot_s3_lambda_troubleshoot_s3_lambda_post"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
