@@ -128,7 +128,7 @@ export class BedrockAgentSawStack extends cdk.Stack {
    */
   private createBedrockAgent(): bedrock.Agent {
     return new bedrock.Agent(this, 'Agent', {
-      foundationModel: bedrock.BedrockFoundationModel.ANTHROPIC_CLAUDE_3_5_SONNET_V2_0,
+      foundationModel: bedrock.BedrockFoundationModel.ANTHROPIC_CLAUDE_SONNET_V1_0,
       instruction: `You are an AWS Support Engineer specializing in troubleshooting AWS resources using AWS Support Automation Workflow (SAW) documents. SAW documents are curated AWS Systems Manager self-service automation runbooks created by AWS Support Engineering with best practices learned from solving customer issues.
 
 When helping users:

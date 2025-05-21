@@ -6,7 +6,7 @@ executes AWS Support Automation Workflow (SAW) documents. SAW documents are cura
 self-service automation runbooks created by AWS Support Engineering to troubleshoot common AWS issues.
 """
 
-from typing import Any, Dict
+from typing import Annotated
 
 import boto3
 from aws_lambda_powertools import Logger, Tracer
@@ -14,8 +14,6 @@ from aws_lambda_powertools.event_handler import BedrockAgentResolver
 from aws_lambda_powertools.event_handler.openapi.params import Body
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from botocore.exceptions import ClientError
-from typing_extensions import Annotated
-
 from utils import execute_automation
 
 tracer = Tracer()

@@ -57,8 +57,18 @@ bedrock-agent-saw
 **Note**: The `schema.json` file is generated automatically by using [Powertools for AWS Lambda](https://docs.powertools.aws.dev/lambda/python/latest/core/event_handler/bedrock_agents/). Below are the commands to generate the file:
 
 ```shell
-pip3 install boto3 aws-lambda-powertools pydantic==1.* typing-extensions
-python3 lambda/saw_troubleshooting/app.py > bedrock_agent_schemas/schema.json
+# Set up a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows, use: .venv\Scripts\activate
+
+# Install dependencies
+pip install boto3 aws-lambda-powertools pydantic typing-extensions
+
+# Generate schema
+python lambda/saw_troubleshooting/app.py > bedrock_agent_schemas/schema.json
+
+# Deactivate virtual environment when done
+deactivate
 ```
 
 ## Getting Started
@@ -70,6 +80,7 @@ python3 lambda/saw_troubleshooting/app.py > bedrock_agent_schemas/schema.json
 - Node.js: v18.12.1 or later
 - [AWS CDK](https://github.com/aws/aws-cdk/releases/tag/v2.143.0): 2.143.0 or later
 - Python 3.9 or later (for local development)
+- Python virtual environment (venv) for dependency management
 
 ### Deploy the Solution
 
@@ -81,7 +92,13 @@ python3 lambda/saw_troubleshooting/app.py > bedrock_agent_schemas/schema.json
 
 2. Install dependencies:
    ```bash
+   # Install Node.js dependencies
    npm install
+   
+   # Set up Python virtual environment for Lambda function
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows, use: .venv\Scripts\activate
+   pip install boto3 aws-lambda-powertools pydantic typing-extensions
    ```
 
 3. Bootstrap AWS CDK resources (if not already done):
