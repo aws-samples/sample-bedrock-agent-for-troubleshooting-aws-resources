@@ -75,23 +75,30 @@ export class BedrockAgentSawStack extends cdk.Stack {
               actions: [
                 'ec2:Describe*',
                 'eks:DescribeCluster',
+                'eks:DescribeAddonVersions',
 
                 // IAM permissions
                 'iam:GetInstanceProfile',
                 'iam:GetRole',
                 'iam:ListAttachedRolePolicies',
+                'iam:ListInstanceProfiles',
 
                 // SSM permissions
                 'ssm:DescribeInstanceInformation',
                 'ssm:ListCommandInvocations',
                 'ssm:ListCommands',
                 'ssm:SendCommand',
-
+                'ssm:GetParameter',
+                'ssm:DescribeAutomationStepExecutions',
+                'ssm:GetCommandInvocation',
+                
                 // S3 permissions
                 's3:GetBucketNotification',
                 's3:ListBucket',
                 's3:GetBucketPolicy',
                 's3:GetBucketLocation',
+                's3:GetAccountPublicAccessBlock',
+                's3:GetBucketPublicAccessBlock',
 
                 // Lambda permissions
                 'lambda:GetFunction',
@@ -127,9 +134,9 @@ export class BedrockAgentSawStack extends cdk.Stack {
    * Creates the Bedrock Agent with appropriate configuration
    */
   private createBedrockAgent(): bedrock.Agent {
-    return new bedrock.Agent(this, 'Agent', {
-      foundationModel: bedrock.BedrockFoundationModel.ANTHROPIC_CLAUDE_SONNET_V1_0,
-      instruction: `You are an AWS Support Engineer specializing in troubleshooting AWS resources using AWS Support Automation Workflow (SAW) documents. SAW documents are curated AWS Systems Manager self-service automation runbooks created by AWS Support Engineering with best practices learned from solving customer issues.
+    const crossRegionInferenceProfile = bedrock.CrossRegionInferenceProfile.fromConfig({ geoRegion: bedrock.CrossRegionInferenceProfileRegion.APAC, model: bedrock.BedrockFoundationModel.ANTHROPIC_CLAUDE_3_7_SONNET_V1_0, }); // ANTHROPIC_CLAUDE_3_5_SONNET_V2_0
+    // https://docs.aws.amazon.com/cdk/api/v2/java/software/amazon/awscdk/services/bedrock/alpha/BedrockFoundationModel.html
+    const agentInstruction = `You are an AWS Support Engineer specializing in troubleshooting AWS resources using AWS Support Automation Workflow (SAW) documents. SAW documents are curated AWS Systems Manager self-service automation runbooks created by AWS Support Engineering with best practices learned from solving customer issues.
 
 When helping users:
 1. Ask clarifying questions to understand their specific issue with AWS resources
@@ -139,7 +146,10 @@ When helping users:
 5. Analyze the results and provide a clear explanation of the findings
 6. Suggest specific remediation steps based on the identified issues
 
-Always provide context about what the troubleshooting process will check and how it can help resolve their issue.`,
+Always provide context about what the troubleshooting process will check and how it can help resolve their issue.`
+    return new bedrock.Agent(this, 'Agent', {
+      foundationModel: crossRegionInferenceProfile,
+      instruction: agentInstruction,
       shouldPrepareAgent: true,
     });
   }
@@ -149,7 +159,7 @@ Always provide context about what the troubleshooting process will check and how
    */
   private createActionGroupFunction(role: iam.Role): lambda.Function {
     return new lambda.Function(this, 'ActionGroupFunction', {
-      runtime: lambda.Runtime.PYTHON_3_13,
+      runtime: lambda.Runtime.PYTHON_3_14,
       handler: 'app.lambda_handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/saw_troubleshooting')),
       layers: [
@@ -163,7 +173,7 @@ Always provide context about what the troubleshooting process will check and how
       role: role,
     });
   }
-  
+
 
   /**
    * Creates the action group for AWS Support Automation Workflow and adds it to the agent
