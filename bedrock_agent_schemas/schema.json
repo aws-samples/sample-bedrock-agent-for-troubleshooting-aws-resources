@@ -1,243 +1,1327 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Powertools API",
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "/"
-    }
-  ],
-  "paths": {
-    "/troubleshoot-eks-worker-node": {
-      "post": {
-        "summary": "POST /troubleshoot-eks-worker-node",
-        "description": "Troubleshoot EKS worker node failed to join the cluster",
-        "operationId": "troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "title": "Return",
-                  "description": "The output of the Automation execution"
-                }
-              }
-            }
-          }
-        }
-      }
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Powertools API",
+        "version": "1.0.0"
     },
-    "/troubleshoot-ecs-container-instance": {
-      "post": {
-        "summary": "POST /troubleshoot-ecs-container-instance",
-        "description": "Troubleshoot ECS container instance failed to register with the cluster",
-        "operationId": "troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "title": "Return",
-                  "description": "The output of the Automation execution"
-                }
-              }
-            }
-          }
+    "servers": [
+        {
+            "url": "/"
         }
-      }
-    },
-    "/troubleshoot-s3-lambda": {
-      "post": {
-        "summary": "POST /troubleshoot-s3-lambda",
-        "description": "Troubleshoot why an Amazon S3 event notification failed to trigger the specified AWS Lambda function.",
-        "operationId": "troubleshoot_s3_lambda_troubleshoot_s3_lambda_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_troubleshoot_s3_lambda_troubleshoot_s3_lambda_post"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "title": "Return",
-                  "description": "The output of the Automation execution"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Body_troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post": {
-        "properties": {
-          "cluster_name": {
-            "type": "string",
-            "title": "Cluster Name",
-            "description": "The name of the ECS cluster"
-          },
-          "container_instance_id": {
-            "type": "string",
-            "title": "Container Instance Id",
-            "description": "The ID of the container instance"
-          }
-        },
-        "type": "object",
-        "required": [
-          "cluster_name",
-          "container_instance_id"
-        ],
-        "title": "Body_troubleshoot_ecs_container_instance_troubleshoot_ecs_container_instance_post"
-      },
-      "Body_troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post": {
-        "properties": {
-          "cluster_name": {
-            "type": "string",
-            "title": "Cluster Name",
-            "description": "The name of the EKS cluster"
-          },
-          "worker_id": {
-            "type": "string",
-            "title": "Worker Id",
-            "description": "The ID of the worker node"
-          }
-        },
-        "type": "object",
-        "required": [
-          "cluster_name",
-          "worker_id"
-        ],
-        "title": "Body_troubleshoot_eks_worker_node_troubleshoot_eks_worker_node_post"
-      },
-      "Body_troubleshoot_s3_lambda_troubleshoot_s3_lambda_post": {
-        "properties": {
-          "s3_bucket_name": {
-            "type": "string",
-            "title": "S3 Bucket Name",
-            "description": "The name of the S3 bucket"
-          },
-          "lambda_function_arn": {
-            "type": "string",
-            "title": "Lambda Function Arn",
-            "description": "The ARN of the Lambda function"
-          }
-        },
-        "type": "object",
-        "required": [
-          "s3_bucket_name",
-          "lambda_function_arn"
-        ],
-        "title": "Body_troubleshoot_s3_lambda_troubleshoot_s3_lambda_post"
-      },
-      "HTTPValidationError": {
-        "properties": {
-          "detail": {
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "type": "array",
-            "title": "Detail"
-          }
-        },
-        "type": "object",
-        "title": "HTTPValidationError"
-      },
-      "ValidationError": {
-        "properties": {
-          "loc": {
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
+    ],
+    "paths": {
+        "/ts-connectivity": {
+            "post": {
+                "summary": "POST /ts-connectivity",
+                "description": "diagnoses connectivity issues",
+                "operationId": "ts_connectivity",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_ts_connectivity"
+                            }
+                        }
+                    },
+                    "required": true
                 },
-                {
-                  "type": "integer"
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
                 }
-              ]
-            },
-            "type": "array",
-            "title": "Location"
-          },
-          "type": {
-            "type": "string",
-            "title": "Error Type"
-          }
+            }
         },
-        "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
-        "title": "ValidationError"
-      }
+        "/enable-vpc-flow-logs": {
+            "post": {
+                "summary": "POST /enable-vpc-flow-logs",
+                "description": "creates Amazon Virtual Private Cloud (Amazon VPC) Flow Logs for subnets, network interfaces, and VPCs in your AWS account",
+                "operationId": "evfl",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_enable_vpc_flow_logs_enable_vpc_flow_logs_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/check-and-mount-efs": {
+            "post": {
+                "summary": "POST /check-and-mount-efs",
+                "description": "verifies the prerequisites to mount EFS file system and mounts the file system on the EC2 instance",
+                "operationId": "came",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_check_and_mount_efs_check_and_mount_efs_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-cw-agent": {
+            "post": {
+                "summary": "POST /troubleshoot-cw-agent",
+                "description": "Troubleshoot Amazon CloudWatch Agent on your Amazon EC2 instance.",
+                "operationId": "troubleshoot_cw_agent",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_troubleshoot_cw_agent"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/activate-windows": {
+            "post": {
+                "summary": "POST /activate-windows",
+                "description": "Activate an Amazon EC2 instance for Windows Server with a license provided by Amazon.",
+                "operationId": "activate_windows",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_activate_windows"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-eb": {
+            "post": {
+                "summary": "POST /troubleshoot-eb",
+                "description": "Troubleshoot the potential reasons why your AWS Elastic Beanstalk environment is in a Degraded or Severe state.",
+                "operationId": "troubleshoot_eb",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_troubleshoot_eb"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-ssh": {
+            "post": {
+                "summary": "POST /troubleshoot-ssh",
+                "description": "installs the Amazon EC2Rescue tool for Linux, and then uses the EC2Rescue tool to check or attempt to fix common issues that prevent a remote connection to the Linux machine via SSH",
+                "operationId": "ttsh",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_troubleshoot_ssh_troubleshoot_ssh_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/manage-rdp-settings": {
+            "post": {
+                "summary": "POST /manage-rdp-settings",
+                "description": "allows the user to manage common Remote Desktop Protocol (RDP) settings, such as the RDP port and Network Layer Authentication (NLA)",
+                "operationId": "mrs",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_manage_rdp_settings_manage_rdp_settings_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/configure-ec2-metadata": {
+            "post": {
+                "summary": "POST /configure-ec2-metadata",
+                "description": "Configure instance metadata service (IMDS) options for Amazon Elastic Compute Cloud (Amazon EC2) instances.",
+                "operationId": "configure_ec2metadata",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_configure_ec2metadata"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-rdp": {
+            "post": {
+                "summary": "POST /troubleshoot-rdp",
+                "description": "Check or modify common settings on the target instance which may impact Remote Desktop Protocol (RDP) connections.",
+                "operationId": "troubleshoot_rdp",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_troubleshoot_rdp"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reset-ec2-access": {
+            "post": {
+                "summary": "POST /reset-ec2-access",
+                "description": "Use the EC2Rescue tool on the specified EC2 instance to re-enable password decryption using the EC2 Console (Windows) or to generate and add a new SSH key pair (Linux).",
+                "operationId": "reset_ec2_access",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_reset_ec2_access"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/collect-eks-node-logs": {
+            "post": {
+                "summary": "POST /collect-eks-node-logs",
+                "description": "Collect EKS worker node logs",
+                "operationId": "collect_eks_node_logs",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_collect_eks_node_logs"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-ecs-task": {
+            "post": {
+                "summary": "POST /troubleshoot-ecs-task",
+                "description": "Troubleshoot an ECS Task that failed to start",
+                "operationId": "ts_ecs_task",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_ts_ecs_task"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/diagnose-disk-usage": {
+            "post": {
+                "summary": "POST /diagnose-disk-usage",
+                "description": "Diagnose disk usage of EC2 instance if disk issues can be mitigated by expanding the volume.",
+                "operationId": "diag_disk_usage",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_diag_disk_usage"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/diagnose-disk-usage-win": {
+            "post": {
+                "summary": "POST /diagnose-disk-usage-win",
+                "description": "Diagnose disk usage of Windows instance if disk issues can be mitigated by expanding the volume.",
+                "operationId": "diag_disk_usage_win",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_diag_disk_usage_win"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-eks-cluster": {
+            "post": {
+                "summary": "POST /troubleshoot-eks-cluster",
+                "description": "Troubleshoot an EKS Cluster",
+                "operationId": "ts_eks_cluster",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_ts_eks_cluster"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-eks-worker-node": {
+            "post": {
+                "summary": "POST /troubleshoot-eks-worker-node",
+                "description": "Troubleshoot EKS worker node failed to join the cluster",
+                "operationId": "ts_eks_worker_node",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_ts_eks_worker_node"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-ecs-instance": {
+            "post": {
+                "summary": "POST /troubleshoot-ecs-instance",
+                "description": "Troubleshoot ECS container instance failed to register with the cluster",
+                "operationId": "ts_ecs_instance",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_ts_ecs_instance"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/troubleshoot-s3-lambda": {
+            "post": {
+                "summary": "POST /troubleshoot-s3-lambda",
+                "description": "Troubleshoot why an Amazon S3 event notification failed to trigger the specified AWS Lambda function.",
+                "operationId": "ts_s3_lambda",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_ts_s3_lambda"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": true,
+                                    "type": "object",
+                                    "title": "Return",
+                                    "description": "The output of the Automation execution"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_ts_connectivity": {
+                "properties": {
+                    "source_ip": {
+                        "type": "string",
+                        "title": "SourceIP",
+                        "description": "The private IPv4 address of the AWS resource in your Amazon VPC you want to test connectivity from."
+                    },
+                    "destination_ip": {
+                        "type": "string",
+                        "title": "DestinationIP",
+                        "description": "The IPv4 address of the resource you want to connect to."
+                    },
+                    "destination_port": {
+                        "type": "string",
+                        "title": "DestinationPort",
+                        "description": "The port number you want to connect to on the destination resource."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "source_ip",
+                    "destination_ip",
+                    "destination_port"
+                ],
+                "title": "Body_ts_connectivity"
+            },
+            "Body_enable_vpc_flow_logs_enable_vpc_flow_logs_post": {
+                "properties": {
+                    "log_destination_type": {
+                        "type": "string",
+                        "title": "Log Destination Type",
+                        "description": "Determines where flow log data is published. (cloud-watch-logs | s3)",
+                        "default": "cloud-watch-logs"
+                    },
+                    "resource_ids": {
+                        "items": {},
+                        "type": "array",
+                        "title": "Resource Ids",
+                        "description": "A comma-separated list of the IDs for the subnets, elastic network interfaces, or VPC for which you want to create a flow log."
+                    },
+                    "traffic_type": {
+                        "type": "string",
+                        "title": "Traffic Type",
+                        "description": "The type of traffic to log. You can log traffic that the resource accepts or rejects, or all traffic. (ACCEPT | REJECT | ALL)",
+                        "default": "ALL"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "resource_ids"
+                ],
+                "title": "Body_enable_vpc_flow_logs_enable_vpc_flow_logs_post"
+            },
+            "Body_check_and_mount_efs_check_and_mount_efs_post": {
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "title": "Action",
+                        "description": "whether the runbook verifies prerequisites, or verifies prerequisites and mounts the file system. (Check | CheckAndMount)"
+                    },
+                    "efs_id": {
+                        "type": "string",
+                        "title": "Efs Id",
+                        "description": "The ID of the file system you want to mount."
+                    },
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "The ID of the Amazon EC2 instance on which you want to mount the file system."
+                    },
+                    "region": {
+                        "type": "string",
+                        "title": "Region",
+                        "description": "The AWS Region where the Amazon EC2 instance and file system are located."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "action",
+                    "efs_id",
+                    "instance_id",
+                    "region"
+                ],
+                "title": "Body_check_and_mount_efs_check_and_mount_efs_post"
+            },
+            "Body_troubleshoot_cw_agent": {
+                "properties": {
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "The ID of the Amazon EC2 instance you want to troubleshoot the Amazon CloudWatch Agent on."
+                    },
+                    "s3_upload_bucket": {
+                        "type": "string",
+                        "title": "S3 Upload Bucket",
+                        "description": "The name of an Amazon S3 bucket to upload the collected Amazon CloudWatch Agent logs."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id",
+                    "s3_upload_bucket"
+                ],
+                "title": "Body_troubleshoot_cw_agent"
+            },
+            "Body_activate_windows": {
+                "properties": {
+                    "force_activation": {
+                        "type": "string",
+                        "title": "Whether to activate windows forcefully",
+                        "description": "Set it to true if you want to proceed even if Windows is already activated."
+                    },
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "ID of your managed EC2 instance for Windows Server"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id",
+                    "force_activation"
+                ],
+                "title": "Body_activate_windows"
+            },
+            "Body_troubleshoot_eb": {
+                "properties": {
+                    "application_name": {
+                        "type": "string",
+                        "title": "Application Name",
+                        "description": "The name of your Elastic Beanstalk application"
+                    },
+                    "environment_name": {
+                        "type": "string",
+                        "title": "Environment Name",
+                        "description": "The name of your Elastic Beanstalk environment"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "application_name",
+                    "environment_name"
+                ],
+                "title": "Body_troubleshoot_eb"
+            },
+            "Body_troubleshoot_ssh_troubleshoot_ssh_post": {
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "title": "Action",
+                        "description": "Specify whether to check for issues without fixing them or to check and automatically fix any discovered issues. (CheckAll | FixAll)"
+                    },
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "ID of your EC2 instance for Linux"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "action",
+                    "instance_id"
+                ],
+                "title": "Body_troubleshoot_ssh_troubleshoot_ssh_post"
+            },
+            "Body_manage_rdp_settings_manage_rdp_settings_post": {
+                "properties": {
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "ID of the managed instance to manage the RDP settings of"
+                    },
+                    "nla_setting_action": {
+                        "type": "string",
+                        "title": "Nla Setting Action",
+                        "description": "action to perform on the NLA setting: Check, Enable, Disable"
+                    },
+                    "rdp_port_action": {
+                        "type": "string",
+                        "title": "Rdp Port Action",
+                        "description": "action to apply to the RDP port (Check | Modify)"
+                    },
+                    "remote_connections": {
+                        "type": "string",
+                        "title": "Remote Connections",
+                        "description": "action to perform on the fDenyTSConnections setting (Check | Enable | Disable)"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id",
+                    "nla_setting_action",
+                    "rdp_port_action",
+                    "remote_connections"
+                ],
+                "title": "Body_manage_rdp_settings_manage_rdp_settings_post"
+            },
+            "Body_configure_ec2metadata": {
+                "properties": {
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "The ID of the Amazon EC2 Instance you want to configure metadata options."
+                    },
+                    "enforce_IMDSv2": {
+                        "type": "string",
+                        "title": "IMSDv2 values",
+                        "description": "Enforce IMDSv2. If you choose required, the Amazon EC2 instance will only use IMDSv2. If you choose optional, you can choose between IMDSv1 and IMDSv2 for metadata access"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id",
+                    "enforce_IMDSv2"
+                ],
+                "title": "Body_configure_ec2metadata"
+            },
+            "Body_troubleshoot_rdp": {
+                "properties": {
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "The ID of the instance to troubleshoot the RDP settings of"
+                    },
+                    "rdp_port_action": {
+                        "type": "string",
+                        "title": "RDP Port Action",
+                        "description": "Check the current port used for RDP connections, or modify the RDP port back to 3389 and restart the service. Defailt: Check"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id",
+                    "rdp_port_action"
+                ],
+                "title": "Body_troubleshoot_rdp"
+            },
+            "Body_reset_ec2_access": {
+                "properties": {
+                    "ec2_rescue_instance_type": {
+                        "type": "string",
+                        "title": "EC2 Rescue Instance Type",
+                        "description": "The EC2 instance type for the EC2Rescue instance. Recommended size: t2.small."
+                    },
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "The ID of the EC2 instance you want to reset access for."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "ec2_rescue_instance_type",
+                    "instance_id"
+                ],
+                "title": "Body_reset_ec2_access"
+            },
+            "Body_collect_eks_node_logs": {
+                "properties": {
+                    "log_destination": {
+                        "type": "string",
+                        "title": "Log Destination",
+                        "description": "The S3 bucket in your account to upload the archived logs to"
+                    },
+                    "instance_id": {
+                        "type": "string",
+                        "title": "EKS Instance Id",
+                        "description": "The Id of EC2 Instance"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id"
+                ],
+                "title": "Body_collect_eks_node_logs"
+            },
+            "Body_ts_ecs_task": {
+                "properties": {
+                    "cluster_name": {
+                        "type": "string",
+                        "title": "Cluster Name",
+                        "description": "iThe name of the Amazon ECS cluster where the task failed to start"
+                    },
+                    "task_id": {
+                        "type": "string",
+                        "title": "Task Id",
+                        "description": "The ID of the ECS task failed to start"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cluster_name",
+                    "task_id"
+                ],
+                "title": "Body_ts_ecs_task"
+            },
+            "Body_diag_disk_usage": {
+                "properties": {
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "The ID of your Amazon EC2 instance."
+                    },
+                    "volume_expansion_enabled": {
+                        "type": "string",
+                        "title": "Volume Expansion Enabled",
+                        "description": "Flag to control whether the document will extend the affected volumes and partitions. Set it to `false` if you do not want to make changes to the Amazon EBS volumes, their partitions, and filesystems."
+                    },
+                    "volume_expansion_usage_trigger": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Minimum usage of partition space required to trigger extension (in percentage)."
+                    },
+                    "volume_expansion_cap_size": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Maximum size that the Amazon EBS Volume will be increased to (in GiB)."
+                    },
+                    "volume_expansion_gib_increase": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Increase in GiB of the volume. The biggest net increase between VolumeExpansionGibIncrease and VolumeExpansionPercentageIncrease will be used."
+                    },
+                    "volume_expansion_percentage_increase": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Increase in percentage of the volume. The biggest net increase between VolumeExpansionGibIncrease and VolumeExpansionPercentageIncrease will be used."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id",
+                    "volume_expansion_enabled",
+                    "volume_expansion_usage_trigger",
+                    "volume_expansion_cap_size",
+                    "volume_expansion_gib_increase",
+                    "volume_expansion_percentage_increase"
+                ],
+                "title": "Body_diag_disk_usage"
+            },
+            "Body_diag_disk_usage_win": {
+                "properties": {
+                    "instance_id": {
+                        "type": "string",
+                        "title": "Instance Id",
+                        "description": "The ID of your Amazon EC2 instance."
+                    },
+                    "volume_expansion_usage_trigger": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Minimum usage of partition space required to trigger extension (in percentage)."
+                    },
+                    "volume_expansion_cap_size": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Maximum size that the Amazon EBS Volume will be increased to (in GiB)."
+                    },
+                    "volume_expansion_gib_increase": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Increase in GiB of the volume. The biggest net increase between VolumeExpansionGibIncrease and VolumeExpansionPercentageIncrease will be used."
+                    },
+                    "volume_expansion_percentage_increase": {
+                        "type": "string",
+                        "title": "Volume Expansion Usage Trigger",
+                        "description": "Increase in percentage of the volume. The biggest net increase between VolumeExpansionGibIncrease and VolumeExpansionPercentageIncrease will be used."
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "instance_id",
+                    "volume_expansion_usage_trigger",
+                    "volume_expansion_cap_size",
+                    "volume_expansion_gib_increase",
+                    "volume_expansion_percentage_increase"
+                ],
+                "title": "Body_diag_disk_usage_win"
+            },
+            "Body_ts_eks_cluster": {
+                "properties": {
+                    "cluster_name": {
+                        "type": "string",
+                        "title": "Cluster Name",
+                        "description": "The name of the EKS cluster"
+                    },
+                    "s3_bucket_name": {
+                        "type": "string",
+                        "title": "S3 Bucket Name",
+                        "description": "The name of the Amazon S3 bucket"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cluster_name",
+                    "s3_bucket_name"
+                ],
+                "title": "Body_ts_eks_cluster"
+            },
+            "Body_ts_eks_worker_node": {
+                "properties": {
+                    "cluster_name": {
+                        "type": "string",
+                        "title": "Cluster Name",
+                        "description": "The name of the EKS cluster"
+                    },
+                    "worker_id": {
+                        "type": "string",
+                        "title": "Worker Id",
+                        "description": "The ID of the worker node"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cluster_name",
+                    "worker_id"
+                ],
+                "title": "Body_ts_eks_worker_node"
+            },
+            "Body_ts_ecs_instance": {
+                "properties": {
+                    "cluster_name": {
+                        "type": "string",
+                        "title": "Cluster Name",
+                        "description": "The name of the ECS cluster"
+                    },
+                    "container_instance_id": {
+                        "type": "string",
+                        "title": "Container Instance Id",
+                        "description": "The ID of the container instance"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "cluster_name",
+                    "container_instance_id"
+                ],
+                "title": "Body_ts_ecs_instance"
+            },
+            "Body_ts_s3_lambda": {
+                "properties": {
+                    "s3_bucket_name": {
+                        "type": "string",
+                        "title": "S3 Bucket Name",
+                        "description": "The name of the S3 bucket"
+                    },
+                    "lambda_function_arn": {
+                        "type": "string",
+                        "title": "Lambda Function Arn",
+                        "description": "The ARN of the Lambda function"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "s3_bucket_name",
+                    "lambda_function_arn"
+                ],
+                "title": "Body_ts_s3_lambda"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "ResponseValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "ResponseValidationError"
+            }
+        }
     }
-  }
 }
