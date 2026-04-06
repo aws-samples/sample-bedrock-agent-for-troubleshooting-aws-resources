@@ -62,7 +62,7 @@ myLogger.setLevel(logging.INFO)
 def Connectivity(
     source_ip: str = Body(default="False", description="The private IPv4 address of the AWS resource in your Amazon VPC you want to test connectivity from"),
     destination_ip: str = Body(description="The IPv4 address of the resource you want to connect to."),
-    destination_port: str = Body(desription="The port number you want to connect to on the destination resource.")
+    destination_port: str = Body(description="The port number you want to connect to on the destination resource.")
 ) -> Annotated[dict, Body(description="The output of the Automation execution")]:
     """"
     The AWSSupport-ConnectivityTroubleshooter runbook diagnoses connectivity issues between the following:
@@ -281,7 +281,7 @@ def manage_rdp_settings(
 
 @app.post("/configure-ec2-metadata", description="Configure instance metadata service (IMDS) options for Amazon Elastic Compute Cloud (Amazon EC2) instances.")
 @tracer.capture_method
-def troubleshoot_rdp(
+def configure_ec2_metadata(
     instance_id: str = Body(description="The ID of the Amazon EC2 Instance you want to configure metadata options"),
     enforce_IMDSv2: str = Body(default="optional", description="Enforce IMDSv2. If you choose required, the Amazon EC2 instance will only use IMDSv2. If you choose optional, you can choose between IMDSv1 and IMDSv2 for metadata access. Default: optional")
 ) -> Annotated[dict, Body(description="The output of the Automation execution")]:
@@ -411,7 +411,7 @@ def troubleshoot_ecs_task(
 
 @app.post("/diagnose-disk-usage", description="Diagnose disk usage of EC2 instance if disk issues can be mitigated by expanding the volume")
 @tracer.capture_method
-def diag_disk_usage_win(
+def diag_disk_usage(
     instance_id: str = Body(description="The ID of your Amazon EC2 instance."),
     volume_expansion_enabled: str = Body(default="true", description="Flag to control whether the document will extend the affected volumes and partitions. Set it to `false` if you do not want to make changes to the Amazon EBS volumes, their partitions, and filesystems."),
     volume_expansion_usage_trigger: str = Body(default="85", description="Minimum usage of partition space required to trigger extension (in percentage). By default 85%"),
@@ -436,7 +436,7 @@ def diag_disk_usage_win(
     Returns:
         The output of the Automation execution
     """
-    logger.info(f"Starting diag_disk_usage_win()...")    
+    logger.info(f"Starting diag_disk_usage()...")    
     logger.info(f"Diagnosing an EC2 Windows instance {instance_id}, while the trigger disk usage is set to {volume_expansion_usage_trigger}.")
     return execute_automation(
         'AWSPremiumSupport-TroubleshootEC2DiskUsage',

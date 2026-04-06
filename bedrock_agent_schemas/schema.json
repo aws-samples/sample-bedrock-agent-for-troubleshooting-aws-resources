@@ -931,7 +931,7 @@
                 "type": "object",
                 "required": [
                     "instance_id",
-                    "rdp_port_action"
+                    "force_activation"
                 ],
                 "title": "Body_activate_windows"
             },
@@ -1023,7 +1023,7 @@
                 "type": "object",
                 "required": [
                     "instance_id",
-                    "EnforceIMDSv2"
+                    "enforce_IMDSv2"
                 ],
                 "title": "Body_configure_ec2metadata"
             },
@@ -1305,7 +1305,6 @@
                 "type": "object",
                 "required": [
                     "loc",
-                    "msg",
                     "type"
                 ],
                 "title": "ValidationError"
